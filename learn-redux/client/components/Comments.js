@@ -1,6 +1,7 @@
 import React from 'react';
 
 const Comments = (props) => {
+  
   const renderComment = (comment, i) => {
     return (
       <div className="comment" key={i}>
@@ -12,14 +13,25 @@ const Comments = (props) => {
       </div>
     )
   }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Submiting form')
+    const { postId } = props.params;
+    const author = e.target.children[0].value;
+    const comment = e.target.children[1].value;
+    props.addComment(postId, author, comment);
+
+  }
+
   return (
     <div className="comment">
       {props.postComments.map((post, i) => (
         renderComment(post, i)
       ))}
-      <form ref="commentForm" className="comment-form">
-        <input type="text" ref="author" placeholder="author" />
-        <input type="text" ref="comment" placeholder="comment" />
+      <form className="comment-form" onSubmit={handleSubmit}>
+        <input type="text" placeholder="author" />
+        <input type="text" placeholder="comment" />
         <input type="submit"/>
       </form>
     </div>
