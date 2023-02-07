@@ -8,7 +8,7 @@ const Comments = (props) => {
         <p>
           <strong>{comment.user}</strong>
           {comment.text}
-          <button className="remove-comment">&times;</button>
+          <button className="remove-comment" onClick={props.removeComment.bind(null, props.params.postId, i)} >&times;</button>
         </p>
       </div>
     )
@@ -21,6 +21,7 @@ const Comments = (props) => {
     const author = e.target.children[0].value;
     const comment = e.target.children[1].value;
     props.addComment(postId, author, comment);
+    e.target.reset();
 
   }
 
